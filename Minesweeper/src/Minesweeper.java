@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Minesweeper {
     private static int totalmine;
     public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
         int xlen = 20;  //设定矩阵的x长度
         int ylen = 15;  //设定矩阵的y长度
         int mine = 15;  //设定雷的数量
@@ -17,16 +18,16 @@ public class Minesweeper {
 
         //初始化 扫雷矩阵 以及 是否检查被打开的数组
         initial(map,mine,covered,open);
-        //print(map,covered);
+        print(map,covered);
         //print(map,open);
 
-        Scanner in = new Scanner(System.in);
         int step = 1;
         boolean valid = true;
         System.out.println("Step: "+step+" (输入格式:  x,y,0/1)");
         String input = in.nextLine();
         while((!input.equals("0")) && valid){
             String[] strarr = input.split(",");
+            if(strarr.length!=3) continue;
             int x = Integer.parseInt(strarr[0]);   //x值
             int y = Integer.parseInt(strarr[1]);   //y值
             int z = Integer.parseInt(strarr[2]);   //0表示非雷，1表示雷
@@ -123,7 +124,7 @@ public class Minesweeper {
         }
     }
 
-    //初始化的一部分
+    //初始化的一部分--计算周围雷的个数
     public static void count(int[][] map,int x,int y){
         int sx = x-1;
         int ex = x+1;
@@ -182,7 +183,7 @@ public class Minesweeper {
             else System.out.print(i);
             for(int j=0;j<m;j++){
                 if(covered[i][j]) System.out.print("[#] ");
-                else if(map[i][j]==-1) System.out.print("[*] ");
+                else if(map[i][j]==-1) System.out.print("[.] ");
                 else if(map[i][j]==-2) System.out.print("[X] ");
                 else if(map[i][j]==0) System.out.print("[ ] ");
                 else System.out.print("["+map[i][j]+"] ");
